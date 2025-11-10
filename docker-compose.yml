@@ -1,22 +1,22 @@
-# Версия синтаксиса Docker Compose
+
 version: '3.8'
 
-# Определяем наши сервисы (контейнеры)
+
 services:
 
-  # --- Базы данных ---
+
 
   postgres-sessions:
-    image: postgres:16-alpine      # Используем официальный образ PostgreSQL 16
+    image: postgres:16-alpine      
     container_name: postgres-sessions-db
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
       POSTGRES_DB: sessions_db
     ports:
-      - "5431:5432"               # Пробрасываем порт 5431 хоста на 5432 контейнера
+      - "5431:5432"              
     volumes:
-      - postgres_sessions_data:/var/lib/postgresql/data # Сохраняем данные даже после остановки контейнера
+      - postgres_sessions_data:/var/lib/postgresql/data 
 
   postgres-orders:
     image: postgres:16-alpine
@@ -42,16 +42,16 @@ services:
     volumes:
       - postgres_tickets_data:/var/lib/postgresql/data
 
-  # --- Брокер сообщений ---
+ 
 
   rabbitmq:
-    image: rabbitmq:3.13-management-alpine # Образ RabbitMQ с веб-интерфейсом управления
+    image: rabbitmq:3.13-management-alpine 
     container_name: rabbitmq
     ports:
-      - "5672:5672"   # Порт для подключения клиентов
-      - "15672:15672" # Порт для веб-интерфейса
+      - "5672:5672"   
+      - "15672:15672"
 
-# Определяем тома (volumes) для сохранения данных баз
+
 volumes:
   postgres_sessions_data:
   postgres_orders_data:
